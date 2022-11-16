@@ -5,6 +5,8 @@ const initialState = {
     address: "",
     signer: {},
     provider: {},
+    invoice: Array(),
+    totalInvoices: 0,
   },
 };
 
@@ -21,10 +23,22 @@ const walletSlice = createSlice({
     setAddress(state, action) {
       state.wallet.address = action.payload;
     },
+    setNewInvoice(state, action) {
+      state.wallet.invoice = action.payload;
+    },
+    incrementTotalInvoices(state) {
+      state.wallet.totalInvoices++;
+    },
   },
 });
 
-export const { setSigner, setProvider, setAddress } = walletSlice.actions;
+export const {
+  setSigner,
+  setProvider,
+  setAddress,
+  setNewInvoice,
+  incrementTotalInvoices,
+} = walletSlice.actions;
 
 const store = configureStore({
   reducer: walletSlice.reducer,

@@ -9,3 +9,11 @@ interface ProviderProp {
 interface ComponentProp extends ProviderProp {
   setContract: React.Dispatch<React.SetStateAction<Contract | undefined>>;
 }
+
+interface AddinvoiceProp {
+  contractSigner: Contract | undefined;
+}
+
+interface ListInvoiceProp {
+  contractProvider: Contract | undefined;
+}

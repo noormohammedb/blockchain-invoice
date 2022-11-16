@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { Contract } from "ethers";
+import { incrementTotalInvoices } from "../../store";
+import { useDispatch } from "react-redux";
 
-interface AddinvoiceProp extends ProviderProp {
-  contractWrite: Contract | undefined;
-}
-
-const AddInvoiceHeader = ({ provider, contractWrite }: AddinvoiceProp) => {
+const AddInvoiceHeader = ({ contractSigner }: AddinvoiceProp) => {
+  const dispatch = useDispatch();
   const [prodName, setProdName] = useState("");
   const [prodPrice, setProdPrice] = useState(0);
   const [prodQty, setProdQty] = useState(0);
   const formSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const dataFromBlockchain = await contractWrite?.addInvoice([
+    const dataFromBlockchain = await contractSigner?.addInvoice([
       [prodName, prodPrice, prodQty],
     ]);
+    console.log("transaction: ", dataFromBlockchain);
     const tx = await dataFromBlockchain.wait();
-    console.log("tx: ", tx);
+    console.log("tx complete: ", tx);
+    dispatch(incrementTotalInvoices());
   };
   return (
     <>

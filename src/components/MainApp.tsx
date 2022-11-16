@@ -4,6 +4,7 @@ import ConnectWallet from "./ConnectWallet";
 import { useSelector } from "react-redux";
 import abi, { contractAddress } from "../util/contract_config";
 import AddInvoiceHeader from "./AddInvoice/AddInvoiceHeader";
+import LIstInvoice from "./AddInvoice/ListInvoice/LIstInvoice";
 
 const MainApp = ({ provider }: ProviderProp) => {
   const [contractProvider, setContractProvider] = useState<Contract>();
@@ -26,7 +27,10 @@ const MainApp = ({ provider }: ProviderProp) => {
       <div>MainApp</div>
 
       <ConnectWallet provider={provider} />
-      <AddInvoiceHeader provider={provider} contractWrite={contractSigner} />
+
+      {contractSigner && <AddInvoiceHeader contractSigner={contractSigner} />}
+      <hr />
+      {contractProvider && <LIstInvoice contractProvider={contractProvider} />}
     </>
   );
 };
