@@ -13,7 +13,7 @@ const MainApp = ({ provider }: ProviderProp) => {
   const userEthAddress = useSelector((store: any) => store.wallet.address);
   useEffect(() => {
     if (userEthAddress) {
-      console.log("userEthAddress: ", userEthAddress);
+      // provider.getCode(contractAddress).then(console.log);
       const contractRead = new Contract(contractAddress, abi, provider);
       const signer = provider.getSigner();
       const contractWrite = new Contract(contractAddress, abi, signer);

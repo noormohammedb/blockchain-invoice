@@ -13,16 +13,15 @@ export const loadInvoices = async (contractProvider: Contract) => {
         amount: bigToNum(oneInvoice.header.inv_total_amt),
       },
       body: [
-        {
-          product: oneInvoice.products[0].pro_name,
-          price: bigToNum(oneInvoice.products[0].pro_price),
-          qty: bigToNum(oneInvoice.products[0].pro_qty),
-        },
+        oneInvoice.products.map((data: any) => ({
+          product: data.pro_name,
+          price: bigToNum(data.pro_price),
+          qty: bigToNum(data.pro_qty),
+        })),
       ],
     };
     allInvoice.push(properInvoice);
   }
-  console.log("allInvoice: ", allInvoice);
   return allInvoice;
 };
 

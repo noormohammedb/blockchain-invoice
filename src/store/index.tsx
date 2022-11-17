@@ -7,6 +7,7 @@ const initialState = {
     provider: {},
     invoice: Array(),
     totalInvoices: 0,
+    localProducts: Array(),
   },
 };
 
@@ -29,6 +30,9 @@ const walletSlice = createSlice({
     incrementTotalInvoices(state) {
       state.wallet.totalInvoices++;
     },
+    addLocalProduct(state, action) {
+      state.wallet.localProducts.push(action.payload);
+    },
   },
 });
 
@@ -38,6 +42,7 @@ export const {
   setAddress,
   setNewInvoice,
   incrementTotalInvoices,
+  addLocalProduct,
 } = walletSlice.actions;
 
 const store = configureStore({

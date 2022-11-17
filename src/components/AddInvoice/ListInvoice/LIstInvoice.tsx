@@ -10,9 +10,8 @@ const LIstInvoice = ({ contractProvider }: ListInvoiceProp) => {
   const totalInvoices = useSelector((store: any) => store.wallet.totalInvoices);
 
   useEffect(() => {
-    if (userEthAddress) {
+    if (userEthAddress && contractProvider) {
       (async () => {
-        console.log("update invoice store");
         const properInvoice = await loadInvoices(contractProvider);
         dispatch(setNewInvoice(properInvoice));
       })();
@@ -28,9 +27,6 @@ const LIstInvoice = ({ contractProvider }: ListInvoiceProp) => {
         value={JSON.stringify(invoiceFromStore, null, 2)}
         onChange={() => {}}
       ></textarea>
-      {/* {invoiceFromStore.map((data) => {
-        return <p>{JSON.stringify(data, null, "2")}</p>;
-      })} */}
     </>
   );
 };

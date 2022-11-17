@@ -1,22 +1,31 @@
 import React, { useState } from "react";
-import { Contract } from "ethers";
-import { incrementTotalInvoices } from "../../store";
-import { useDispatch } from "react-redux";
+import { addLocalProduct, incrementTotalInvoices } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import ListLocalProds from "./ListLocalProds";
 
 const AddInvoiceHeader = ({ contractSigner }: AddinvoiceProp) => {
+  const localProducts = useSelector((state: any) => state.wallet.localProducts);
   const dispatch = useDispatch();
   const [prodName, setProdName] = useState("");
   const [prodPrice, setProdPrice] = useState(0);
   const [prodQty, setProdQty] = useState(0);
+
   const formSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const dataFromBlockchain = await contractSigner?.addInvoice([
-      [prodName, prodPrice, prodQty],
-    ]);
+    // console.log("localProducts: ", localProducts);
+    const dataFromBlockchain = await contractSigner?.addInvoice(localProducts);
     console.log("transaction: ", dataFromBlockchain);
     const tx = await dataFromBlockchain.wait();
     console.log("tx complete: ", tx);
     dispatch(incrementTotalInvoices());
+  };
+
+  const addProduct = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const newProd = [prodName, prodPrice, prodQty];
+
+    dispatch(addLocalProduct(newProd));
   };
   return (
     <>
@@ -48,9 +57,13 @@ const AddInvoiceHeader = ({ contractSigner }: AddinvoiceProp) => {
             value={prodQty}
             onChange={(e) => setProdQty(+e.target.value)}
           />
+          <button onClick={addProduct}>Add</button>
+          <br />
+          <br />
           <br />
           <button>submit</button>
         </form>
+        <ListLocalProds />
       </div>
     </>
   );
