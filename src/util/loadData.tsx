@@ -2,7 +2,6 @@ import { Contract } from "ethers";
 
 export const loadInvoices = async (contractProvider: Contract) => {
   const totalInvoice = await contractProvider.globalCounter();
-  console.log("totalInvoice : ", totalInvoice);
   const allInvoice = [];
   for (let index = 0; index < totalInvoice.toNumber(); index++) {
     const oneInvoice = await contractProvider.getInvoice(index);

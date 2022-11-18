@@ -23,7 +23,7 @@ const LIstInvoice = ({ contractProvider }: ListInvoiceProp) => {
       <div>LIstInvoice</div>
       <textarea
         cols={70}
-        rows={999}
+        rows={80}
         value={JSON.stringify(invoiceFromStore, null, 2)}
         onChange={() => {}}
       ></textarea>

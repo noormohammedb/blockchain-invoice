@@ -6,20 +6,24 @@ const ListLocalProds = () => {
     <>
       <div>ListLocalProds</div>
       <table border={1}>
-        <tr>
-          <th>product name</th>
-          <th>price</th>
-          <th>quantity</th>
-        </tr>
-        {localProducts.map((prod: any, index: any) => {
-          return (
-            <tr key={index}>
-              <td>{prod[0]}</td>
-              <td>{prod[1]}</td>
-              <td>{prod[2]}</td>
-            </tr>
-          );
-        })}
+        <thead>
+          <tr>
+            <th>product name</th>
+            <th>price</th>
+            <th>quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {localProducts.map((prod: any, index: any) => {
+            return (
+              <tr key={index}>
+                <td>{prod[0]}</td>
+                <td>{prod[1]}</td>
+                <td>{prod[2]}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </>
   );
