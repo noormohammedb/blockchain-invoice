@@ -7,7 +7,9 @@ export const loadInvoices = async (contractProvider: Contract) => {
     const oneInvoice = await contractProvider.getInvoice(index);
     const properInvoice = {
       header: {
-        date: bigToNum(oneInvoice.header.inv_date),
+        date: new Date(
+          bigToNum(oneInvoice.header.inv_date) * 1000
+        ).toLocaleString(),
         no: bigToNum(oneInvoice.header.inv_no),
         amount: bigToNum(oneInvoice.header.inv_total_amt),
       },
